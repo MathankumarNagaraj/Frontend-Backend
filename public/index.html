@@ -1,11 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fruit Form</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fruit Form</title>
 </head>
 <body>
-    <div id="root"></div>
+  <h1>Fruit Name</h1>
+  <form id="fruitForm">
+    <input type="text" id="fruitInput" placeholder="Enter a fruit name" required>
+    <button type="submit">Add Fruit</button>
+  </form>
+
+  <script>
+    document.getElementById('fruitForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const fruit = document.getElementById('fruitInput').value;
+
+      const response = await fetch('http://localhost:5000/addFruit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fruit }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+    });
+  </script>
 </body>
 </html>
