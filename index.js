@@ -1,23 +1,25 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const express = require("express")
+const cors = require("cors")
 
-const app = express();
-const PORT = 5000;
+const app = express()
+app.use(cors())
 
-app.use(bodyParser.json());
-app.use(cors());
+app.use(express.urlencoded({extended:true}))
+app.use(express.json())
 
-const fruits = [];
+fruits = []
 
-app.post('/addFruit', (req, res) => {
-  const { fruit } = req.body;
-  fruits.push(fruit);
-  console.log(fruits);
-  res.status(200).json({ message: 'Fruit added successfully!', fruits });
-});
-
-
-app.listen(5000,function(){
-    console.log("server started...")
+app.post("/fruitname", function(req,res){
+    // console.log(req.query.fruitname)?
+    const {fruitname} = req.body
+    if(fruitname){
+        fruits.push(fruitname);
+        console.log(fruits);
+        res.send(fruits)
+    }
+    
 })
+
+
+app.listen(5000, function(){
+    console.log("Server Started...")});
